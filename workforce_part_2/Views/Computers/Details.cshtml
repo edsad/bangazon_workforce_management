@@ -1,0 +1,36 @@
+@model workforce_part_2.Models.Computer
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Computer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ComputerMake)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ComputerMake)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ComputerManufacturer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ComputerManufacturer)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
