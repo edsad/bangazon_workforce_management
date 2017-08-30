@@ -33,7 +33,6 @@ namespace workforce_part_2.Controllers
             }
 
             var trainingProgram = await _context.TrainingProgram
- 
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (trainingProgram == null)
             {
@@ -54,7 +53,7 @@ namespace workforce_part_2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TrainingProgramName,StartDate,EndDate")] TrainingProgram trainingProgram)
+        public async Task<IActionResult> Create([Bind("Id,TrainingProgramName,StartDate,EndDate,Description,MaxNumber")] TrainingProgram trainingProgram)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +85,7 @@ namespace workforce_part_2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TrainingProgramName,StartDate,EndDate")] TrainingProgram trainingProgram)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,TrainingProgramName,StartDate,EndDate,Description,MaxNumber")] TrainingProgram trainingProgram)
         {
             if (id != trainingProgram.Id)
             {
