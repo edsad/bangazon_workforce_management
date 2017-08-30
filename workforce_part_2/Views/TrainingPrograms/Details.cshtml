@@ -1,4 +1,4 @@
-@model workforce_part_2.Models.TrainingProgram
+@model workforce_part_2.Models.ViewModels.TrainingProgramDetailViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -11,38 +11,44 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.TrainingProgramName)
+            @Html.DisplayNameFor(model => model.TrainingProgram.TrainingProgramName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.TrainingProgramName)
+            @Html.DisplayFor(model => model.TrainingProgram.TrainingProgramName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.TrainingProgram.Description)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.TrainingProgram.Description)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
+            @Html.DisplayNameFor(model => model.TrainingProgram.StartDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.StartDate)
+            @Html.DisplayFor(model => model.TrainingProgram.StartDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
+            @Html.DisplayNameFor(model => model.TrainingProgram.EndDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.EndDate)
+            @Html.DisplayFor(model => model.TrainingProgram.EndDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.MaxNumber)
+            @Html.DisplayNameFor(model => model.TrainingProgram.MaxNumber)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.MaxNumber)
+            @Html.DisplayFor(model => model.TrainingProgram.MaxNumber)
         </dd>
+        @foreach (var employee in Model.Employee)
+        {
+            @employee.FirstName
+
+        }
+
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.TrainingProgram.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

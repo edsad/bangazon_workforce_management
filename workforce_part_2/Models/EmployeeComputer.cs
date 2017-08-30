@@ -11,10 +11,12 @@ namespace workforce_part_2.Models
         [Key]
         public int Id { get; set; }
         public int EmployeeId { get; set; }
-        public string ComputerId { get; set; }
+        public int ComputerId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public Computer Computer { get; set; }
         public Employee Employee { get; set; }
+
+
     }
 }

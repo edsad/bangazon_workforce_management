@@ -10,5 +10,6 @@ namespace workforce_part_2.Models.ViewModels
         public Employee employee { get; set; }
         public List<int> TrainingProgramEmployee { get; set; } = new List<int>();
         public List<int> Computer { get; set; } = new List<int>();
+        public IEnumerable<int> EmployeeTrainingProgram { get; internal set; }
     }
 }
