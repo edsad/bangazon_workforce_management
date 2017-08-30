@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using workforce_part_2.Models;
-using workforce_part_2.Models.ViewModels;
 
 namespace workforce_part_2.Controllers
 {
@@ -33,23 +32,14 @@ namespace workforce_part_2.Controllers
                 return NotFound();
             }
 
-            var trainingProgram = await _context.TrainingProgram.Include(tp => tp.EmployeeTrainingProgram)
+            var trainingProgram = await _context.TrainingProgram
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (trainingProgram == null)
             {
                 return NotFound();
             }
-            TrainingProgramDetailViewModel TrainingProgramViewModel = new TrainingProgramDetailViewModel();
 
-            foreach (var employee in trainingProgram.EmployeeTrainingProgram)
-            {
-                var Employee = _context.Employee.SingleOrDefault(t => t.Id == employee.EmployeeId);
-                TrainingProgramViewModel.Employee.Add(Employee);
-            }
-
-            TrainingProgramViewModel.TrainingProgram = trainingProgram;
-
-            return View(TrainingProgramViewModel);
+            return View(trainingProgram);
         }
 
         // GET: TrainingPrograms/Create
@@ -95,7 +85,7 @@ namespace workforce_part_2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TrainingProgramName,StartDate,EndDate,Description,MaxNumber,EmployeeTrainingProgram")] TrainingProgram trainingProgram)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,TrainingProgramName,StartDate,EndDate,Description,MaxNumber")] TrainingProgram trainingProgram)
         {
             if (id != trainingProgram.Id)
             {

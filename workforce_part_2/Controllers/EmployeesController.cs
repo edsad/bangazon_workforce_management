@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using workforce_part_2.Models;
-using workforce_part_2.Models.ViewModels;
 
 namespace workforce_part_2.Controllers
 {
@@ -93,9 +92,9 @@ namespace workforce_part_2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, EmployeeEditViewModel viewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,DepartmentId,StartDate")] Employee employee)
         {
-            if (id != viewModel.employee.Id)
+            if (id != employee.Id)
             {
                 return NotFound();
             }
@@ -104,34 +103,12 @@ namespace workforce_part_2.Controllers
             {
                 try
                 {
-                    foreach (int ProgramId in viewModel.EmployeeTrainingProgram)
-                    {
-                        EmployeeTrainingProgram EmployeeTrainingProgram = new EmployeeTrainingProgram()
-                        {
-                            EmployeeId = viewModel.employee.Id,
-                            TrainingId = _context.TrainingProgram.SingleOrDefault(t => t.Id == ProgramId).Id
-                        };
-                    
-                    _context.Add(EmployeeTrainingProgram);
-
-                }
-                    _context.Update(viewModel.employee);
-
-                    foreach (int ComputerId in viewModel.Computer)
-                    {
-                        EmployeeComputer Computer = new EmployeeComputer()
-                        {
-                            EmployeeId = viewModel.employee.Id,
-                            ComputerId = _context.Computer.SingleOrDefault(c => c.Id == ComputerId).Id
-                        };
-                        _context.Add(Computer);
-                        await _context.SaveChangesAsync();
-                    }
-                    _context.Update(viewModel.employee);
+                    _context.Update(employee);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(viewModel.employee.Id))
+                    if (!EmployeeExists(employee.Id))
                     {
                         return NotFound();
                     }
@@ -142,8 +119,8 @@ namespace workforce_part_2.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["DepartmentId"] = new SelectList(_context.Department, "Id", "Departmentname", viewModel.employee.DepartmentId);
-            return View(viewModel);
+            ViewData["DepartmentId"] = new SelectList(_context.Department, "Id", "Id", employee.DepartmentId);
+            return View(employee);
         }
 
         // GET: Employees/Delete/5
